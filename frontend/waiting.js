@@ -1,0 +1,1 @@
+postToApi("add-table", { nick });

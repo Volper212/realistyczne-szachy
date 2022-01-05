@@ -1,10 +1,12 @@
-const board = document.getElementById("board");
+const tables = document.getElementById("tables");
 
-for (let row = 0; row < 8; ++row) {
-    const row = document.createElement("tr");
-    for (let col = 0; col < 8; ++col) {
-        const square = document.createElement("td");
-        row.append(square);
+getFromApi("tables").then((data) => {
+    for (const table of data) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = `board.html?table=${encodeURIComponent(table)}`;
+        a.textContent = table;
+        li.append(a);
+        tables.append(li);
     }
-    board.append(row);
-}
+});

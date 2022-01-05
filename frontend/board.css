@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+}
+
+.board {
+    border-collapse: collapse;
+    width: 60vmin;
+    height: 60vmin;
+}
+
+.board > tr {
+    height: 12.5%;
+}
+
+.board > tr > td {
+    background: lightyellow;
+    width: 12.5%;
+    user-select: none;
+}
+
+.board > :nth-child(even) > :nth-child(odd),
+.board > :nth-child(odd) > :nth-child(even) {
+    background: darkgreen;
+}
