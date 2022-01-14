@@ -5,10 +5,16 @@ body {
     min-height: 100vh;
 }
 
-.board {
-    border-collapse: collapse;
+.game {
     width: 60vmin;
     height: 60vmin;
+    position: relative;
+}
+
+.board {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
 }
 
 .board > tr {
@@ -24,4 +30,11 @@ body {
 .board > :nth-child(even) > :nth-child(odd),
 .board > :nth-child(odd) > :nth-child(even) {
     background: darkgreen;
+}
+
+.pieces > img {
+    width: 10%;
+    height: 10%;
+    position: absolute;
+    z-index: 1;
 }
