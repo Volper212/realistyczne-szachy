@@ -6,8 +6,8 @@ body {
 }
 
 .game {
-    width: 60vmin;
-    height: 60vmin;
+    width: 500px;
+    height: 500px;
     position: relative;
 }
 
@@ -36,5 +36,7 @@ body {
     width: 10%;
     height: 10%;
     position: absolute;
+    top: 0;
+    left: 0;
     z-index: 1;
 }
