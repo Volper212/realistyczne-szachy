@@ -22,7 +22,9 @@ boardWss.on("connection", async (player, req) => {
     const waitingClient = waitingClients.get(table);
     if (waitingClient) {
         let resolve;
+        const isGuestBlack = Math.random() < 0.5;
         boards.set(table, {
+            isGuestBlack,
             guest: player,
             host: new Promise((_resolve) => {
                 resolve = _resolve;
@@ -39,11 +41,15 @@ boardWss.on("connection", async (player, req) => {
         boards.get(table).resolve(player);
     }
     {
-        const { guest, host, pieces } = boards.get(table);
+        const { isGuestBlack, guest, host, pieces } = boards.get(table);
         const opponent = waitingClient ? await host : guest;
-        player.send(JSON.stringify(pieces));
+        if ((player === guest) === isGuestBlack) {
+            player.send(JSON.stringify(pieces.map(flip)));
+        } else {
+            player.send(JSON.stringify(pieces));
+        }
         player.on("message", (data) => {
-            opponent.send(data.toString());
+            opponent.send(JSON.stringify(flip(JSON.parse(data.toString()))));
         });
         player.on("close", () => {
             opponent.send("leave");
@@ -53,6 +59,14 @@ boardWss.on("connection", async (player, req) => {
         });
     }
 });
+
+function flip({ x, y, ...piece }) {
+    return {
+        ...piece,
+        x: 450 - x,
+        y: 450 - y,
+    };
+}
 
 waitingWss.on("connection", (client, req) => {
     const table = decodeURIComponent(req.url.substring(1));
