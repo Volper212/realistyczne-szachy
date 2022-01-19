@@ -5,3 +5,9 @@ html {
 body {
     background: darkgray;
 }
+
+a,
+a:visited {
+    color: blue;
+    text-decoration: none;
+}
