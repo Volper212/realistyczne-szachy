@@ -1,3 +1,7 @@
+if (location.hash === "#opponent-left") {
+    alert("Twój przeciwnik opuścił grę.");
+}
+
 const tables = document.getElementById("tables");
 
 const socket = new WebSocket(`ws://${location.hostname}:8081`);

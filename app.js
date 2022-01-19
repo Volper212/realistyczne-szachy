@@ -45,6 +45,12 @@ boardWss.on("connection", async (player, req) => {
         player.on("message", (data) => {
             opponent.send(data.toString());
         });
+        player.on("close", () => {
+            opponent.send("leave");
+            opponent.on("close", () => {
+                boards.delete(table);
+            });
+        });
     }
 });
 

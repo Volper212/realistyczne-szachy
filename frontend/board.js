@@ -15,6 +15,10 @@ for (let row = 0; row < 8; ++row) {
 const piecesDiv = document.getElementById("pieces");
 
 socket.addEventListener("message", ({ data }) => {
+    console.log(data);
+    if (data === "leave") {
+        location.replace("/#opponent-left");
+    }
     const input = JSON.parse(data);
     if (Array.isArray(input)) {
         input.forEach(({ color, type, x, y }, i) => {
