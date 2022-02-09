@@ -19,6 +19,9 @@ socket.addEventListener("message", ({ data }) => {
     if (data === "leave") {
         location.replace("/#opponent-left");
     }
+    if (data === "no game") {
+        location.replace("/#no-game");
+    }
     const input = JSON.parse(data);
     if (Array.isArray(input)) {
         input.forEach(({ color, type, x, y }, i) => {

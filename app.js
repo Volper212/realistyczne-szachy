@@ -38,7 +38,12 @@ boardWss.on("connection", async (player, req) => {
         });
         waitingClient.send();
     } else {
-        boards.get(table).resolve(player);
+        const board = boards.get(table);
+        if (!board) {
+            player.send("no game");
+            return;
+        }
+        board.resolve(player);
     }
     {
         const { isGuestBlack, guest, host, pieces } = boards.get(table);
