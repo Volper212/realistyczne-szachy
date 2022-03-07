@@ -8,24 +8,24 @@ if (location.hash === "#no-game") {
     alert("Nie znaleziono partii");
 }
 
-const tables = document.getElementById("tables");
+const tables = $("#tables");
 
 const socket = new WebSocket(`ws://${location.hostname}:8081`);
 
 socket.addEventListener("message", ({ data }) => {
     tables.innerHTML = "";
     for (const table of JSON.parse(data)) {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = `board.html?table=${encodeURIComponent(table)}`;
-        a.textContent = table;
+        const li = $("<li></li>");
+        const a = $("<a></a>");
+        a.attr("href", `board.html?table=${encodeURIComponent(table)}`);
+        a.text(table);
         li.append(a);
         tables.append(li);
     }
 });
 
-const logout = document.getElementById("logout");
+const logout = $("#logout");
 
-logout.addEventListener("click", () => {
+logout.click(() => {
     localStorage.removeItem("nick");
 });
